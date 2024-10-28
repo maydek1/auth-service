@@ -1,0 +1,15 @@
+keycloak:
+  auth-server-url: keycloak
+  realm: cab-realm
+  resource: my-client-id
+  credentials:
+    secret: my-client-secret
+  bearer-only: true
+  use-resource-role-mappings: true
+
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/auth/realms/my-realm
