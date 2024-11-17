@@ -1,9 +1,10 @@
 keycloak:
-  auth-server-url: keycloak
+  auth-server-url: http://keycloak:8080
   realm: cab-realm
-  resource: my-client-id
+  resource: cab-aggregator
+  clientId: 419f7b01-f3dc-42ae-bdc4-a7f87961b17f
   credentials:
-    secret: my-client-secret
+    secret: nmglr3bbdFOY4dqq31U3oPlDlIo4dxVn
   bearer-only: true
   use-resource-role-mappings: true
 
@@ -12,4 +13,30 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8080/auth/realms/my-realm
+          issuer-uri: keycloak/auth/realms/cab-realm
+server:
+  port: 4550
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka:8761/eureka/
+  instance:
+    preferIpAddress: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    prometheus:
+      enabled: true
+
+service:
+  passenger-service:
+    name: PassengerService
+    path: /api/v1/passengers
+  driver-service:
+    name: DriverService
+    path: /api/v1/drivers
